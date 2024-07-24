@@ -1,0 +1,175 @@
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+>
+  <h1 class="h2">Formations</h1>
+</div>
+
+<div class="col-lg-12">
+  <div class="row tab-content">
+    <div class="col-xl-12 col-xxl-12 col-sm-12">
+      <div class="card">
+        <div class="card-header" style="background-color: #fff">
+          <h4 class="card-title">Modification Formation</h4>
+        </div>
+        <div class="card-body">
+          <span style="font-style: italic"
+            ><strong
+              >NB: les champs notés avec (*) sont obligatoires</strong
+            ></span
+          >
+          <p></p>
+          <form [formGroup]="formationFormUpdate">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="form-label" for="Enter_Intitule"
+                    >Intitulé <span style="color: red">*</span></label
+                  >
+                  <input
+                    id="Enter_Intitule"
+                    placeholder="Géneralité JEE"
+                    type="text"
+                    class="form-control"
+                    value="{{ trainingDetail.title }}"
+                    formControlName="title"
+                    required
+                  />
+                  <input
+                    type="hidden"
+                    class="form-control"
+                    value="{{ trainingDetail.id }}"
+                    formControlName="id"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="form-label" for="Enter_Sous_Theme"
+                    >Sous Thème <span style="color: red">*</span></label
+                  >
+                  <select
+                    class="form-control"
+                    name=""
+                    id="Enter_Sous_Theme"
+                    formControlName="subThemes"
+                    multiple
+                  >
+                    <option value="" disabled selected>
+                      Sélectionner un sous thème
+                    </option>
+                    <option
+                      *ngFor="let s of listSubThemes"
+                      [selected]="isSelected(s)"
+                      [value]="s"
+                    >
+                      {{ s.subthemeTitle }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <p></p>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="form-label" for="Enter_Price"
+                    >Prix de la formation
+                    <span style="color: red">*</span></label
+                  >
+                  <input
+                    id="Enter_Price"
+                    placeholder="0"
+                    type="number"
+                    class="form-control"
+                    value="{{ trainingDetail.trainingPrice }}"
+                    formControlName="trainingPrice"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group fallback w-100">
+                  <label class="form-label" for="Enter_File"
+                    >Choisir un fichier <span style="color: red">*</span></label
+                  >
+                  <input
+                    type="file"
+                    class="form-control"
+                    data-default-file=""
+                    accept="image/*"
+                    id="Enter_File"
+                    (change)="selectImage($event)"
+                    required
+                  />
+                  <img
+                    *ngIf="imageSrc"
+                    [src]="'data:image/png;base64,' + imageSrc"
+                    class="rounded-circle"
+                    width="100"
+                    height="100"
+                    alt=""
+                    style="margin-top: 5px"
+                  />
+                </div>
+              </div>
+              <p></p>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label class="form-label" for="Enter_Description"
+                    >Description <span style="color: red">*</span></label
+                  >
+                  <textarea
+                    class="form-control"
+                    name=""
+                    id="Enter_Description"
+                    cols="10"
+                    rows="5"
+                    placeholder="Description"
+                    formControlName="description"
+                    value="{{ trainingDetail.description }}"
+                    required
+                  ></textarea>
+                  <input
+                    type="hidden"
+                    class="form-control input-default"
+                    formControlName="creationDate"
+                    required
+                  />
+                </div>
+              </div>
+              <p></p>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div style="float: right">
+                  <button
+                    type="submit"
+                    [disabled]="
+                      formationFormUpdate.invalid || isFormTrainingLoading
+                    "
+                    class="btn btn-primary"
+                    (click)="updateTraining()"
+                  >
+                    <span
+                      *ngIf="isFormTrainingLoading"
+                      class="spinner-border"
+                    ></span
+                    ><span [ngClass]="isFormTrainingLoading ? 'hidden' : ''"
+                      >&nbsp;Enregistrer</span
+                    ></button
+                  >&nbsp;
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    (click)="cancel()"
+                  >
+                    &nbsp;Annuler
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

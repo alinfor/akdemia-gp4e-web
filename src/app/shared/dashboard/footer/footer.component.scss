@@ -1,0 +1,34 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#bg-dark-footer {
+  bottom: 0;
+    position: relative;
+    min-height: 15vh;
+    margin-top: 25%;
+    //background-image: url(../../../../assets/images/u24_div.jpg);
+    background-color: #576EA7;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow-y: hidden;
+    flex-shrink: 0;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.text-center {
+    font-family: Poppins, serif;
+    font-size: 20px;
+    color: #fff;
+    padding: 20px 0;
+}

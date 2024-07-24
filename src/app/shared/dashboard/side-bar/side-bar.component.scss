@@ -1,0 +1,23 @@
+.bg-dark-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #576EA7; 
+}
+
+.bg-dark-akdemia::before {
+    content: ""; 
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.active-link {
+    background-color: #007bff; /* Changez la couleur selon vos besoins */
+}

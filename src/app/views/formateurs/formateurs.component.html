@@ -1,0 +1,141 @@
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+>
+  <h1 class="h2 text-primary">Formateurs</h1>
+</div>
+<div class="col-lg-12">
+  <div class="row tab-content">
+    <div
+      id="list-view"
+      class="tab-pane fade active show col-lg-12"
+      role="tabpanel"
+    >
+      <div class="card">
+        <div class="card-header d-flex justify-content-between">
+          <h4 class="card-title lead">Liste des formateurs</h4>
+          <a href="dashboard/formateurs/insert" class="btn btn-primary"
+            >Ajouter</a
+          >
+        </div>
+        <div class="card-body" *ngIf="!isLoading">
+          <div class="row mb-3">
+            <div class="col-md-3 d-flex">
+              <label for="entries" class="me-2">Afficher</label>
+              <form style="width: 100%" [formGroup]="filterForm" class="form">
+                <select
+                  formControlName="filter"
+                  class="form-select form-select-sm me-2"
+                  id="entries"
+                  style="height: 38px"
+                >
+                  <option value="5">5</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+              </form>
+              <label for="entries">entrées</label>
+            </div>
+            <div class="col-md-5">&nbsp;</div>
+            <div class="col-md-4">
+              <form
+                [formGroup]="searchForm"
+                style="position: relative; width: 350px; float: right"
+              >
+                <i
+                  class="fas fa-search"
+                  style="
+                    position: absolute;
+                    left: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                  "
+                ></i>
+                <input
+                  formControlName="keyWord"
+                  (input)="searchByName()"
+                  class="form-control"
+                  type="search"
+                  placeholder="Recherche"
+                  aria-label="Search"
+                  style="padding-left: 30px"
+                />
+              </form>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead style="--bs-table-bg: #576ea7">
+                <tr>
+                  <th scope="col" class="text-white">Nom</th>
+                  <th scope="col" class="text-white">Prénom</th>
+                  <th scope="col" class="text-white">Email</th>
+                  <th scope="col" class="text-white">Entreprise</th>
+                  <th scope="col" class="text-white">Téléphone</th>
+                  <th scope="col" class="text-white">Sexe</th>
+                  <th scope="col" class="text-white">Date</th>
+                  <th scope="col" class="text-white">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let firstTrainer of trainers | paginate: {
+                      itemsPerPage: filterForm.value.filter,
+                      currentPage: page,
+                      }; "
+                >
+                  <td>{{ firstTrainer.firstname }}</td>
+                  <td>{{ firstTrainer.lastname }}</td>
+                  <td>{{ firstTrainer.email }}</td>
+                  <td>{{ firstTrainer.activity }}</td>
+                  <td>{{ firstTrainer.phone }}</td>
+                  <td>{{ firstTrainer.gender }}</td>
+                  <td>{{ firstTrainer.creationDate | date : "dd-MM-yyyy" }}</td>
+                  <td>
+                    <span
+                      class="text-success"
+                      (click)="goToEdit(firstTrainer.id)"
+                      title="Modifier"
+                      ><i class="fa fa-pencil text-primary"></i></span
+                    >&nbsp;
+                    <span
+                      class="text-danger"
+                      (click)="deleteTrainer(firstTrainer.id)"
+                      title="Supprimer"
+                      ><i class="fa fa-trash"></i></span
+                    >&nbsp;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <p class="m-0">
+                Affichage de {{ filterForm.value.filter }} entrées sur
+                {{ trainers.length }}
+              </p>
+            </div>
+
+            <div class="col-md-2"></div>
+            <div class="col-md-4 text-end">
+              <pagination-controls
+                (pageChange)="handlePageChange($event)"
+                (pageBoundsCorrection)="handlePageChange($event)"
+                previousLabel="Précédent"
+                nextLabel="Suivant"
+                screenReaderPaginationLabel="Pagination"
+                screenReaderPageLabel="page"
+                screenReaderCurrentLabel="Vous êtes à la page"
+              >
+              </pagination-controls>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid waiting" *ngIf="isLoading">
+          <span class="spinner-border"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

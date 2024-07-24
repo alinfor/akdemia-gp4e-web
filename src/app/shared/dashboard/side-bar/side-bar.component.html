@@ -1,0 +1,110 @@
+<div
+  class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark-akdemia"
+  style="width: 280px; height: 100vh"
+>
+  <div class="bg-dark-overlay">
+    <a
+      [routerLink]="dashboardLink"
+      class="d-flex align-items-center mt-3 text-white text-decoration-none"
+    >
+      <span class="fs-4 dashboard-style ms"
+        ><i class="fa fa-desktop mx-2"></i>DASHBOARD</span
+      >
+    </a>
+    <hr />
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item" routerLinkActiveOptions="{ exact: false }">
+        <a
+          class="nav-link text-white collapsed"
+          data-bs-toggle="collapse"
+          data-bs-target="#catalogue-collapse"
+          aria-expanded="true"
+          style="color: #fff"
+          [routerLink]="catalogueLink"
+          [routerLinkActive]="'active'"
+        >
+          <i class="fas fa-book mx-2"></i>Catalogues
+          <i
+            class="fa fa-caret-down"
+            aria-hidden="true"
+            style="float: right"
+          ></i>
+        </a>
+        <div class="collapse" id="catalogue-collapse">
+          <ul
+            class="btn-toggle-nav fw-normal pb-1 small"
+            style="list-style: none; padding-left: 3rem"
+          >
+            <li>
+              <a
+                [routerLink]="themesLink"
+                [routerLinkActive]="'active-link'"
+                class="text-white d-block"
+                style="text-decoration: none;"
+                >Themes</a
+              >
+            </li>
+            <li>
+              <a
+                [routerLink]="formationsLink"
+                [routerLinkActive]="'active-link'"
+                class="text-white d-block"
+                style="text-decoration: none"
+                >Formations</a
+              >
+            </li>
+          </ul>
+        </div>
+      </li>
+      <hr />
+      <li>
+        <a
+          [routerLink]="formateursLink"
+          class="nav-link text-white"
+          [routerLinkActive]="'active'"
+        >
+          <i class="fa fa-users"></i> &nbsp; Formateurs
+        </a>
+      </li>
+
+      <hr />
+      <li>
+        <a
+          [routerLink]="clientsLink"
+          class="nav-link text-white"
+          [routerLinkActive]="'active'"
+        >
+          <i class="fa fa-users"></i> &nbsp; Participants
+        </a>
+      </li>
+      <hr />
+      <li class="nav-item">
+        <a
+          class="nav-link text-white collapsed"
+          data-bs-toggle="collapse"
+          data-bs-target="#session-collapse"
+          aria-expanded="true"
+          style="color: #fff"
+          [routerLink]="sessionsLink"
+          [routerLinkActive]="'active'"
+        >
+          <i class="fas fa-book mx-2"></i>Session
+        </a>
+      </li>
+      <hr />
+      <li class="nav-item">
+        <a
+          class="nav-link text-white collapsed"
+          data-bs-toggle="collapse"
+          data-bs-target="#companies-collapse"
+          aria-expanded="true"
+          style="color: #fff"
+          [routerLink]="companiesLink"
+          [routerLinkActive]="'active'"
+        >
+          <i class="fas fa-book mx-2"></i>Companies
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

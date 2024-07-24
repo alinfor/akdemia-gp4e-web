@@ -1,0 +1,209 @@
+<div class="col-lg-12" style="margin-top: 10px">
+  <div class="card">
+    <div class="card-header" style="background-color: #fff">
+      <div class="d-flex justify-content-between">
+        <h4 class="card-title">Liste des Session</h4>
+        <button *ngIf="isSessionView" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trainingModal" (click)="loadSessions()" >
+        Nouvelle Session
+      </button>
+      <!-- <button  *ngIf="isInterSessionView" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trainingModal" (click)="loadInterSessions()" >
+        Nouvelle InterSession
+      </button>
+      <button *ngIf="isIntraSessionView" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trainingModal" (click)="loadIntraSessions()" >
+        Nouvelle IntraSession
+      </button> -->
+      </div>
+      <p class="my-3">
+        <a
+        (click)="loadSessions()"
+        class="link-offset-2 mx-5 link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+      >
+        <span [ngClass]="{ active: isSessionView}">Session</span>
+      </a>
+        <a
+          (click)="loadInterSessions()"
+          class="link-offset-2 mx-5 link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+        >
+          <span [ngClass]="{ active: isInterSessionView }">InterSession</span>
+        </a>
+        <a
+          (click)="loadIntraSessions()"
+          class="link-offset-2 mx-5 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+        >
+          <span [ngClass]="{ active: isIntraSessionView }">IntraSession</span>
+        </a>
+
+      </p>
+      <div
+        class="modal fade"
+        id="trainingModal"
+        data-bs-backdrop="static"
+        tabindex="-1"
+        aria-labelledby="trainingModalLabel"
+        aria-hidden="true"
+      >
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 *ngIf="isSessionView" class="modal-title">Créer une session</h4>
+            <h4 *ngIf="isInterSessionView" class="modal-title">Créer une InterSession</h4>
+            <h4 *ngIf="isIntraSessionView" class="modal-title">Créer une IntraSession</h4>
+          </div>
+      
+          <form [formGroup]="sessionForm" (ngSubmit)="onSubmit()">
+            <div class="modal-body" style="padding: 2rem; margin-top: -15px">
+              <span style="font-style: italic">
+                <strong>NB: les champs notés avec (*) sont obligatoires</strong>
+              </span>
+            </div>
+      
+            <div class="row" style="margin-top: -10px; margin-bottom: 20px; margin-left: 10px; margin-right: 10px;">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="code">Code: <span style="color: red">*</span></label>
+                  <input type="text" class="form-control" formControlName="code" />
+                </div>
+                <div class="form-group">
+                  <label for="location">Lieu <span style="color: red">*</span></label>
+                  <input type="text" class="form-control" formControlName="location" />
+                </div>
+                <div class="form-group">
+                  <label for="duration">Durée (J) <span style="color: red">*</span></label>
+                  <input type="number" class="form-control" formControlName="duration" />
+                </div>
+                <!-- <div class="form-group">
+                    <label for="status">Status: <span style="color: red">*</span></label>
+                    <select id="status" name="status" class="form-control" formControlName="status">
+                      <option value="" disabled selected>Sélectionner un statut</option>
+                      <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+                    </select>
+                </div>    -->
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="price">Prix (€) <span style="color: red">*</span></label>
+                  <input type="number" class="form-control" formControlName="price" />
+                </div>
+                <div class="form-group">
+                  <label for="date">Date début <span style="color: red">*</span></label><br />
+                  <input type="date" class="form-control" formControlName="date" />
+                </div>
+                <!-- Ajoutez ici les autres champs requis -->
+                <div class="form-group">
+                  <label for="creationDate">Date de création</label>
+                  <input type="date" class="form-control" formControlName="creationDate"  />
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="description">Description <span style="color: red">*</span></label>
+                  <input type="text" class="form-control" formControlName="description" />
+                </div>
+              </div>
+            </div>
+      
+            <div class="modal-footer" style="padding: 2rem; margin-bottom: -10px">
+              <button type="submit" class="btn btn-primary">
+                <span>Enregistrer</span>
+              </button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Annuler
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      </div>
+
+    </div>
+     <div class="card-body">
+      <div class="row mb-3">
+
+        <div class="col-md-8">&nbsp;</div>
+        <div class="col-md-4">
+          <form
+            [formGroup]="searchForm"
+            style="position: relative; width: 350px; float: right"
+          >
+          <i
+          class="fas fa-search"
+          style="
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+          "
+        ></i>
+            <input
+              formControlName="keyWord"
+              (input)="searchByCode()"
+              class="form-control"
+              type="search"
+              placeholder="Rechercher par code de session..."
+              aria-label="Search"
+              style="padding-left: 30px"
+            />
+          </form>
+        </div>
+      </div>
+        <div class="table-responsive">
+          <table class="table">
+            <thead style="--bs-table-bg: #576ea7">
+              <tr>
+                <th scope="col" class="text-white">Code</th>
+                <th scope="col" class="text-white">Durée</th>
+                <th scope="col" class="text-white">Prix</th>
+                <th scope="col" class="text-white">Description</th>
+                <th scope="col" class="text-white ">Date</th>
+                <!-- <th scope="col" class="text-white ">Status</th> -->
+                <th scope="col" *ngIf="isIntraSessionView" class="text-white">Compagnie</th>
+                <th scope="col" *ngIf="isInterSessionView" class="text-white">Formateur</th>
+                <th scope="col"   class="text-center" class="text-white">Action</th>
+                <!-- <th scope="col" class="text-white">Actions</th> -->
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let session of sessions">
+                <td>{{ session.code}}</td>
+                <td>{{ session.duration }}</td>
+                <td>{{ session.price }} €</td>
+                <td class="description-column">{{ session.description }}</td>
+                <td>{{ session.date | date : "dd-MM-yyyy" }}</td>
+                <!-- <td>{{ session.status }}</td> -->
+                <td *ngIf="isIntraSessionView">{{ session.company?.name }}</td>
+                <td *ngIf="isInterSessionView">{{ session.trainer?.firstname }}</td>
+                <td class="text-center" style="cursor: pointer">
+                  <i
+                    class="fa fa-pencil text-primary"
+
+                    data-bs-toggle="modal"
+                    data-bs-target="#themeUpdateModal"
+                    title="Modifier"
+                  ></i>
+                  <i
+                    class="fa fa-trash text-danger mx-2"
+                    title="Supprimer"
+                  ></i>
+                  <i
+                    class="fa fa-info text-info"
+                    (click)="sessionDetail(session.id)"
+                    title="Détail"
+                  ></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="container-fluid waiting" *ngIf="isLoading">
+        <span class="spinner-border"></span>
+      </div>
+  </div>
+</div>
+
+<p *ngIf="sessions.length === 0 && !isLoading" class="text-center">
+  Aucune session n'a été trouvée.
+</p>
+<p *ngIf="isLoading" class="text-center">Chargement en cours...</p>

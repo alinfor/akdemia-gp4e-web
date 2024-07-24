@@ -1,0 +1,88 @@
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+>
+  <h1 class="h2">Formateurs</h1>
+</div>
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="trainerForm" (ngSubmit)="createTrainer()">
+      <div class="form-group mb-3">
+        <input
+          type="text"
+          class="form-control border-bottom"
+          formControlName="firstname"
+          placeholder="Nom"
+        />
+      </div>
+      <div class="form-group mb-3">
+        <input
+          type="text"
+          class="form-control border-bottom"
+          formControlName="lastname"
+          placeholder="Prénom"
+        />
+      </div>
+      <div class="form-group mb-3">
+        <input
+          type="email"
+          class="form-control border-bottom"
+          formControlName="email"
+          placeholder="Email"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            trainerForm.get('email')!.hasError('email') &&
+            trainerForm.get('email')!.touched
+          "
+        >
+          Veuillez entrer une adresse email valide.
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <input
+          type="text"
+          class="form-control border-bottom"
+          formControlName="activity"
+          placeholder="Entreprise"
+        />
+      </div>
+      <div class="form-group mb-3">
+        <input
+          type="text"
+          class="form-control border-bottom"
+          formControlName="phone"
+          placeholder="Téléphone"
+        />
+      </div>
+      <div>
+        Sexe:
+        <label style="margin-left: 10px;">
+          <input type="radio" formControlName="gender" value="M" required /> M
+        </label>
+        <label style="margin-left: 10px;">
+          <input type="radio" formControlName="gender" value="F" required /> F
+        </label>
+      </div>
+
+      <button
+        class="btn btn-secondary"
+        (click)="cancel()"
+        style="float: right; margin-right: 20px"
+      >
+        Annuler
+      </button>
+      <button
+        class="btn btn-primary"
+        style="float: right; margin-right: 20px"
+        [disabled]="trainerForm.invalid || isLoading"
+      >
+        <span *ngIf="isLoading" class="spinner-border"></span
+        ><span [ngClass]="isLoading ? 'hidden' : ''"
+          ><span [ngClass]="isFormEdit ? 'hidden' : ''">Ajouter</span
+          ><span [ngClass]="!isFormEdit ? 'hidden' : ''">Modifier</span></span
+        >
+      </button>
+    </form>
+  </div>
+</div>
